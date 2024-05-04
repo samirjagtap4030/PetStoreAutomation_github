@@ -46,6 +46,5 @@ public class DataProviders {
 		}
 	
 		return apidata;
-	}
-	
+	}	
 }

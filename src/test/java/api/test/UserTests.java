@@ -16,12 +16,13 @@ public class UserTests {
 
 	Faker faker;
 	User userPayload;
-	
-	public Logger logger; // for logs
+
+	public  Logger logger;
 	
 	@BeforeClass
 	public void setup()
 	{
+	
 		faker=new Faker();
 		userPayload=new User();
 		
@@ -33,8 +34,8 @@ public class UserTests {
 		userPayload.setPassword(faker.internet().password(5, 10));
 		userPayload.setPhone(faker.phoneNumber().cellPhone());
 		
-		//logs
-		logger= LogManager.getLogger(this.getClass());
+		//logs   //sometimes you will get error at getLogger() but it will go automatically 
+		logger= LogManager.getLogger(this.getClass()); 
 		
 		logger.debug("debugging.....");
 		
@@ -60,10 +61,9 @@ public class UserTests {
 		
 		Response response=UserEndPoints.readUser(this.userPayload.getUsername());
 		response.then().log().all();
-		Assert.assertEquals(response.getStatusCode(),200);
+		Assert.assertEquals(response.getStatusCode(),200);	
 		
-		logger.info("**********User info  is displayed ***************");
-		
+	//	logger.info("**********User info  is displayed ***************");
 	}
 	
 	@Test(priority=3)
@@ -91,7 +91,7 @@ public class UserTests {
 	@Test(priority=4)
 	public void testDeleteUserByName()
 	{
-		logger.info("**********   Deleting User  ***************");
+		 logger.info("**********   Deleting User  ***************");
 		
 		Response response=UserEndPoints.deleteUser(this.userPayload.getUsername());
 		Assert.assertEquals(response.getStatusCode(),200);
